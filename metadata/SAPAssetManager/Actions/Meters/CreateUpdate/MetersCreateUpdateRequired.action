@@ -1,0 +1,12 @@
+{
+    "OnFailure": "/SAPAssetManager/Rules/Common/UpdateRequiredFailed.js",
+    "OnSuccess": "/SAPAssetManager/Rules/Meter/CreateUpdate/MeterCreateUpdateChangeSet.js",
+    "RequiredFields": [
+        "ReasonLstPkr",
+        "MeterLstPkr",
+        "ConnectionLstPkr"
+    ],
+    "_Type": "Action.Type.CheckRequiredFields",
+    "ShowActivityIndicator": true,
+    "ActivityIndicatorText" : "  "
+}

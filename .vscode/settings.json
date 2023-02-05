@@ -1,0 +1,29 @@
+
+{
+    "mdk.mobileservice": {
+        "adminAPI": "https://mobile-htpnoig4yx.ae1.hana.ondemand.com/",
+        "appId": "com.sap.sam2205.oauth"
+    },
+    "mdk.bundlerExternals": [ "@nativescript/geolocation"],
+    "mdk.platform": "Android",
+    "files.autoSave": "onWindowChange",
+    "mdk.createUploadBundleZip": true,
+    "mdk.tsTarget": "es6",
+    "mdk.autoBundle":false,
+    "mdk.bundleToAppRoot": true,
+    "mdk.debugAppRoot": "/Users/i533139/SvcAssetMgr",
+"mdk.validateBeforeBundle": true,
+"mdk.referenceApplications": [
+    {
+        "name": "SAPAssetManager",
+        "path": "/Users/i533139/Library/CloudStorage/OneDrive-SAPSE/Srini MYHDD/Project/MDK/MDKCLNT03P_1-70006754/MDKClient_SDK/sam.mdkproject/metadata/SAPAssetManager/Application.app",
+        "comp": "ZSAPAssetManager"
+    },
+    {
+        "name": "ZSAPAssetManager",
+        "path": "/Users/i533139/Library/CloudStorage/OneDrive-SAPSE/Srini MYHDD/Project/MDK/MDKCLNT03P_1-70006754/MDKClient_SDK/sam.mdkproject/metadata/ZSAPAssetManager/Application.app",
+        "comp": "SAPAssetManager"
+    }
+]
+}
+

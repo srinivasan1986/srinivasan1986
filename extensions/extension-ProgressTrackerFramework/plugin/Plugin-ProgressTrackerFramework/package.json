@@ -1,0 +1,17 @@
+{
+  "name": "extension-ProgressTrackerFramework",
+  "version": "2210.0.1",
+  "description": "A Smart Forms framework plugin for MDK",
+  "main": "index.js",
+   "nativescript": {
+      "platforms": {
+         "ios": "2210.0.1",
+         "android": "2210.0.1"
+      }
+   },
+  "scripts": {
+    "test": "test"
+  },
+  "author": "SAP",
+  "license": "ISC"
+}

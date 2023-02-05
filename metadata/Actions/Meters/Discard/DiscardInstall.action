@@ -1,0 +1,11 @@
+{
+    "Target":
+    {
+        "EntitySet": "OrderISULinks",
+        "Service": "/SAPAssetManager/Services/AssetManager.service",
+        "EditLink": "{@odata.editLink}"
+    },
+    "OnSuccess": "/SAPAssetManager/Actions/Meters/CreateUpdate/DiscardEntitySuccessMessage.action",
+    "OnFailure": "/SAPAssetManager/Actions/CreateUpdateDelete/DeleteEntityFailureMessage.action",
+    "_Type": "Action.Type.OfflineOData.UndoPendingChanges"
+}

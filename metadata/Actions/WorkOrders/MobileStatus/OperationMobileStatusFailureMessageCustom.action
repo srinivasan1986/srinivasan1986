@@ -1,0 +1,6 @@
+{
+    "Message": "Custom Message",
+    "Duration": 3,
+    "Animated": true,
+    "_Type": "Action.Type.BannerMessage"
+}

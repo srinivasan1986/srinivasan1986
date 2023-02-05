@@ -1,0 +1,48 @@
+{
+	"Controls": [
+		{
+			"Sections": [
+				{
+					"EmptySection": {
+						"Caption": "$(L, no_documents_available)"
+					},
+					"ObjectCell": {
+						"AccessoryType": "disclosureIndicator",
+						"DetailImageIsCircular": false,
+						"OnPress": "/SAPAssetManager/Rules/Inventory/Inbound/InboundNavigateToObject.js",
+						"PreserveIconStackSpacing": false,
+						"StatusText": "/SAPAssetManager/Rules/Inventory/Inbound/GetInboundDocumentStatusText.js",
+						"Subhead": "/SAPAssetManager/Rules/Inventory/Inbound/GetInboundDocumentVendorText.js",
+						"Footnote": "/SAPAssetManager/Rules/Inventory/Inbound/GetInboundDocumentTypeText.js",
+						"SubstatusText": "/SAPAssetManager/Rules/Inventory/Inbound/DocumentItemsCountCaption.js",
+						"Description": "/SAPAssetManager/Rules/Inventory/Inbound/GetInboundDocumentDateText.js",
+						"Title": "{ObjectId}"
+					},
+					"Search":
+                    {
+                        "Enabled" : true,
+                        "Delay": 700,
+                        "MinimumCharacterThreshold": 3,
+                        "Placeholder": "$(L,search)",
+                        "BarcodeScanner": true
+                    },
+					"Target": {
+						"EntitySet": "MyInventoryObjects",
+						"QueryOptions":  "/SAPAssetManager/Rules/Inventory/PhysicalInventory/GetPhysicalListQuery.js",
+						"Service": "/SAPAssetManager/Services/AssetManager.service"
+					},
+					"DataSubscriptions": [
+						"MaterialDocuments",
+						"PhysicalInventoryDocItems"
+					],
+					"_Name": "SectionObjectTable0",
+					"_Type": "Section.Type.ObjectTable"
+				}
+			],
+			"_Name": "SectionedTable",
+			"_Type": "Control.Type.SectionedTable"
+		}
+	],
+	"_Name": "PhysicalInventoryListPage",
+	"_Type": "Page"
+}

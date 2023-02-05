@@ -1,0 +1,27 @@
+{
+	"ProjectName": "ZSAPAssetManager",
+	"ApplicationName": "ZSAPAssetManager",
+	"ComponentVersion": "001",
+	"IntegrationPoints": [
+		{
+			"Source": "/ZSAPAssetManager/Rules/BusinessPartners/BusinessPartnerWrapper.js",
+			"Target": "/SAPAssetManager/Rules/BusinessPartners/BusinessPartnerWrapper.js"
+		},
+		{
+			"Source": "/ZSAPAssetManager/Rules/MobileStatus/OperationMobileStatusPostUpdate.js",
+			"Target": "/SAPAssetManager/Rules/MobileStatus/OperationMobileStatusPostUpdate.js"
+		},
+		{
+			"Source": "/ZSAPAssetManager/Actions/WorkOrders/MobileStatus/OperationMobileStatusFailureMessageCustom.action",
+			"Target": "/SAPAssetManager/Actions/WorkOrders/MobileStatus/OperationMobileStatusFailureMessageCustom.action"
+		},
+		{
+			"Source": "/ZSAPAssetManager/Rules/Operations/MobileStatus/OperationMobileStatusFailureMessage.js",
+			"Target": "/SAPAssetManager/Rules/Operations/MobileStatus/OperationMobileStatusFailureMessage.js"
+		},
+		{
+			"Source": "/ZSAPAssetManager/i18n/i18n_en.properties",
+			"Target": "/SAPAssetManager/i18n/i18n_en.properties"
+		}
+	]
+}

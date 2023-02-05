@@ -1,0 +1,10 @@
+{
+    "Target": {
+        "EntitySet": "PhysicalInventoryDocItems",
+        "Service": "/SAPAssetManager/Services/AssetManager.service",
+        "ReadLink": "{@odata.readLink}"
+    },
+   	"OnSuccess": "/SAPAssetManager/Actions/CreateUpdateDelete/DeleteEntitySuccessMessage.action",
+    "OnFailure": "/SAPAssetManager/Actions/CreateUpdateDelete/DeleteEntityFailureMessage.action",
+    "_Type": "Action.Type.ODataService.DeleteEntity"
+}

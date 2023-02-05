@@ -1,0 +1,10 @@
+{
+    "_Type": "Action.Type.Message",
+    "Title": "Error",
+    "Message": "/ZSAPAssetManager/Rules/Operations/MobileStatus/OperationMobileStatusFailureMessage.js",
+    "OKCaption": "$(L,ok)",
+    "OnOK": "/ZSAPAssetManager/Rules/Operations/MobileStatus/NavigationToNotification.js"
+}
+
+
+

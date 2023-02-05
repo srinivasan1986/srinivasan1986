@@ -1,0 +1,88 @@
+{
+    "_Type": "Page",
+    "_Name": "CreatedExpenseListPage",
+    "Caption": "$(L, expense_list)",
+    "ActionBar": {
+        "Items": [
+            {
+                "Position": "left",
+                "SystemItem": "Cancel",
+                "OnPress": "/SAPAssetManager/Rules/Expense/List/ConfirmExpenseListClose.js"
+            },
+            {
+                "Position": "right",
+                "Text": "$(L,edit)",
+                "Visible": "/SAPAssetManager/Rules/Expense/List/IsDisplayMode.js",
+                "OnPress": "/SAPAssetManager/Rules/Expense/List/ToggleEditMode.js"
+            },
+            {
+                "Position": "right",
+                "SystemItem": "$(PLT,'Done','')",
+                "Text": "$(L,done)",
+                "OnPress": "/SAPAssetManager/Rules/Expense/List/OnDonePress.js"
+            }
+        ]
+    },
+    "Controls": [
+        {
+            "Sections": [
+                {
+                    "ObjectCell": {
+                        "PreserveIconStackSpacing": false,
+                        "Title": "/SAPAssetManager/Rules/Expense/List/ExpenseTitle.js",
+                        "StatusText": "/SAPAssetManager/Rules/Expense/List/AmountValueWithUOM.js",
+                        "AccessoryType": "disclosureIndicator",
+                        "OnPress": "/SAPAssetManager/Rules/Expense/List/OnExpensePress.js"
+                    },
+                    "Target": {
+                        "EntitySet": "Confirmations",
+                        "Service": "/SAPAssetManager/Services/AssetManager.service",
+                        "QueryOptions": "/SAPAssetManager/Rules/Expense/List/CreatedExpensesQueryOptions.js"
+                    },
+                    "EmptySection": {
+                      "Caption": "$(L,no_expenses)",
+                      "HidesFooter": true
+                    },
+                    "Visible": "/SAPAssetManager/Rules/Expense/List/IsDisplayMode.js",
+                    "_Name": "DisplayClassification",
+                    "_Type": "Section.Type.ObjectTable"
+                }, 
+                {
+                    "EmptySection": {
+                      "Caption": "$(L,no_expenses)",
+                      "HidesFooter": true
+                    },
+                    "ObjectCell": {
+                        "Title": "/SAPAssetManager/Rules/Expense/List/ExpenseTitle.js",
+                        "StatusText": "/SAPAssetManager/Rules/Expense/List/AmountValueWithUOM.js",
+                        "AccessoryButtonIcon": "/SAPAssetManager/Images/xmark.png",
+                        "PreserveIconStackSpacing": false,
+                        "OnAccessoryButtonPress": "/SAPAssetManager/Rules/Expense/List/OnExpensePress.js"
+                    },
+                    "Visible": "/SAPAssetManager/Rules/Expense/List/IsEditMode.js",
+                    "Target": {
+                        "EntitySet": "Confirmations",
+                        "Service": "/SAPAssetManager/Services/AssetManager.service",
+                        "QueryOptions": "/SAPAssetManager/Rules/Expense/List/CreatedExpensesQueryOptions.js"
+                    },
+                    "_Name": "EditClassification",
+                    "_Type": "Section.Type.ObjectTable"
+                }, 
+                {
+                    "_Type": "Section.Type.ButtonTable",
+                    "_Name": "AddAnotherExpenseButton",
+                    "Buttons": [
+                        {
+                            "Visible": "/SAPAssetManager/Rules/Expense/List/IsDisplayMode.js",
+                            "Title" : "$(L, add_another_expense)",
+                            "OnPress" : "/SAPAssetManager/Rules/Expense/List/ExpenseCreateAnotherNav.js",
+                            "TextAlignment": "center"
+                        } 
+                    ]
+                }
+            ],
+            "_Name": "SectionedTable",
+            "_Type": "Control.Type.SectionedTable"
+        }
+    ]
+}

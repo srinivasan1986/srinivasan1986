@@ -1,0 +1,507 @@
+{
+    "OnLoaded": "/SAPAssetManager/Rules/FunctionalLocation/CreateUpdate/FunctionalLocationCreateUpdateOnPageLoad.js",
+    "ActionBar": {
+        "Items": [
+            {
+                "Position": "left",
+                "SystemItem": "Cancel",
+                "OnPress": "/SAPAssetManager/Rules/Common/CheckForChangesBeforeCancel.js"
+            },
+            {
+                "Position": "right",
+                "SystemItem": "/SAPAssetManager/Rules/Common/ChangeSet/ChangeSetCreateUpdateButtonIcon.js",
+                "Text": "/SAPAssetManager/Rules/Common/ChangeSet/ChangeSetCreateUpdateButtonText.js",
+                "OnPress": "/SAPAssetManager/Actions/FunctionalLocation/CreateUpdate/FunctionalLocationCreateUpdateRequired.action"
+            }
+        ]
+    },
+    "Controls": [
+        {
+            "Sections": [
+                {
+                    "Controls": [
+                        {  
+                            "_Name": "CreateFromLstPkr",
+                            "_Type": "Control.Type.FormCell.ListPicker",
+                            "Caption": "$(L, create_from)",
+                            "AllowMultipleSelection": false,
+                            "AllowDefaultValueIfOneItem": true,
+                            "IsPickerDismissedOnSelection": true,
+                            "Search": {
+                                "Enabled": false
+                            },
+                            "IsVisible": "/SAPAssetManager/Rules/FunctionalLocation/CreateUpdate/FunctionalLocationCreateUpdateVisibility.js",
+                            "PickerItems": "/SAPAssetManager/Rules/Common/Controls/Items/CreateFromItems.js",
+                            "OnValueChange": "/SAPAssetManager/Rules/Common/Controls/Handlers/CreateFromValueChanged.js"
+                        },
+                        {  
+                            "_Name": "CategoryLstPkr",
+                            "_Type": "Control.Type.FormCell.ListPicker",
+                            "Caption": "$(L, category)",
+                            "AllowMultipleSelection": false,
+                            "AllowDefaultValueIfOneItem": true,
+                            "IsPickerDismissedOnSelection": true,
+                            "IsSearchCancelledAfterSelection": true,
+                            "Search": {
+                                "Enabled": true,
+                                "Delay": 500,
+                                "MinimumCharacterThreshold": 3,
+                                "Placeholder": "$(L,search)",
+                                "BarcodeScanner": false
+                            },
+                            "PickerItems": {
+                                "DisplayValue" : "{{#Property:FuncLocCategoryDesc}}",
+                                "ReturnValue": "{FuncLocCategory}",
+                                "Target": {
+                                    "EntitySet" : "FuncLocCategories",
+                                    "Service" : "/SAPAssetManager/Services/AssetManager.service"
+                                }
+                            },
+                            "Value": "{FuncLocType}",
+                            "OnValueChange": "/SAPAssetManager/Rules/FunctionalLocation/CreateUpdate/FormCellHandlers/CategoryValueChanged.js"
+                        },
+                        {  
+                            "_Name": "TemplateLstPkr",
+                            "_Type": "Control.Type.FormCell.ListPicker",
+                            "Caption": "$(L, template)",
+                            "AllowMultipleSelection": false,
+                            "AllowDefaultValueIfOneItem": false,
+                            "IsPickerDismissedOnSelection": true,
+                            "IsSearchCancelledAfterSelection": true,
+                            "IsVisible": "/SAPAssetManager/Rules/FunctionalLocation/CreateUpdate/FormCellHandlers/TemplateVisibility.js",
+                            "Search": {
+                                "Enabled": true,
+                                "Delay": 500,
+                                "MinimumCharacterThreshold": 3,
+                                "Placeholder": "$(L,search)",
+                                "BarcodeScanner": false
+                            },
+                            "PickerItems": {
+                                "DisplayValue" : "{{#Property:FuncLocId}}",
+                                "ReturnValue": "{FuncLocIdIntern}",
+                                "Target": {
+                                    "EntitySet" : "FuncLocTemplates",
+                                    "Service" : "/SAPAssetManager/Services/AssetManager.service"
+                                }
+                            },
+                            "Value": "{CopyFuncLocIdIntern}",
+                            "OnValueChange": "/SAPAssetManager/Rules/FunctionalLocation/CreateUpdate/FormCellHandlers/TemplateValueChanged.js"
+                        },
+                        {  
+                            "_Name": "ReferenceLstPkr",
+                            "_Type": "Control.Type.FormCell.ListPicker",
+                            "Caption": "$(L, functional_location)",
+                            "AllowMultipleSelection": false,
+                            "AllowDefaultValueIfOneItem": false,
+                            "IsPickerDismissedOnSelection": true,
+                            "IsSearchCancelledAfterSelection": true,
+                            "Search": {
+                                "Enabled": true,
+                                "Delay": 500,
+                                "MinimumCharacterThreshold": 3,
+                                "Placeholder": "$(L,search)",
+                                "BarcodeScanner": false
+                            },
+                            "PickerItems": {
+                                "DisplayValue" : "{{#Property:FuncLocId}} - {{#Property:FuncLocDesc}}",
+                                "ReturnValue": "{FuncLocIdIntern}",
+                                "Target": {
+                                    "EntitySet" : "MyFunctionalLocations",
+                                    "Service" : "/SAPAssetManager/Services/AssetManager.service",
+                                    "QueryOptions": "$filter=sap.islocal()"
+                                }
+                            },
+                            "Value": "{CopyFuncLocIdIntern}",
+                            "IsVisible": "/SAPAssetManager/Rules/FunctionalLocation/CreateUpdate/FormCellHandlers/ReferenceVisibility.js",
+                            "IsEditable": "/SAPAssetManager/Rules/FunctionalLocation/CreateUpdate/FunctionalLocationCreateUpdateVisibility.js",
+                            "OnValueChange": "/SAPAssetManager/Rules/Common/Controls/Handlers/ReferenceValueChanged.js"
+                        }
+                    ]
+                },
+                {
+                    "Controls":
+                    [{
+                        "PlaceHolder": "$(L,location)",
+                        "IsEditable": false,
+                        "IsVisible": "/SAPAssetManager/Rules/Maps/GISAddEditEnabled.js",
+                        "Value": "/SAPAssetManager/Rules/FunctionalLocation/FunctionalLocationLocationFormat.js",
+                        "_Name": "LocationEditTitle",
+                        "Caption": "$(L,location)",
+                        "_Type": "Control.Type.FormCell.SimpleProperty"
+                    },
+                    {
+                        "_Type": "Control.Type.FormCell.Extension",
+                        "_Name": "LocationEditButtonGroupStack",
+                        "Module": "ButtonStackModule",
+                        "Control": "ButtonStackExtension",
+                        "Class": "ButtonStackClass",
+                        "Height": 60,
+                        "IsVisible": "/SAPAssetManager/Rules/Geometries/IsGeometryEditAllowedOnTablet.js",
+                        "ExtensionProperties": {
+                            "Buttons": [
+                                {
+                                    "Title": "$(L,use_current)",
+                                    "OnPress": "/SAPAssetManager/Rules/FunctionalLocation/CreateUpdate/FunctionalLocationGetCurrentLocation.js",
+                                    "_Name": "CurrentLocationButtonTablet",
+                                    "IsEditable": true
+                                },
+                                {
+                                    "Title": "$(L,use_map)",
+                                    "OnPress": "/SAPAssetManager/Rules/FunctionalLocation/FunctionalLocationMapNav.js",
+                                    "_Name": "EditGeometryButtonTablet",
+                                    "IsEditable": true
+                                },
+                                {
+                                    "Title": "$(L,remove)",
+                                    "OnPress": "/SAPAssetManager/Rules/FunctionalLocation/CreateUpdate/FunctionalLocationDeleteGeometry.js",
+                                    "_Name": "DeleteGeometryButtonTablet",
+                                    "IsEditable": "/SAPAssetManager/Rules/FunctionalLocation/CreateUpdate/FunctionalLocationDeleteGeometryAllowedForTablet.js"
+                                }
+                            ]
+                        }
+                    },
+                    {
+                        "_Type": "Control.Type.FormCell.Extension",
+                        "_Name": "CurrentLocationButtonStack",
+                        "Module": "ButtonStackModule",
+                        "Control": "ButtonStackExtension",
+                        "Class": "ButtonStackClass",
+                        "Height": 44,
+                        "IsVisible": "/SAPAssetManager/Rules/Geometries/IsGeometryEditAllowedOnPhone.js",
+                        "ExtensionProperties": {
+                            "Buttons": [
+                                {
+                                    "Title": "$(L,use_current)",
+                                    "OnPress": "/SAPAssetManager/Rules/FunctionalLocation/CreateUpdate/FunctionalLocationGetCurrentLocation.js",
+                                    "_Name": "ValidateOrCalculateButton",
+                                    "IsEditable": true
+                                }
+                            ]
+                        }
+                    },
+                    {
+                        "_Type": "Control.Type.FormCell.Extension",
+                        "_Name": "EditGeometryButtonStack",
+                        "Module": "ButtonStackModule",
+                        "Control": "ButtonStackExtension",
+                        "Class": "ButtonStackClass",
+                        "Height": 44,
+                        "IsVisible": "/SAPAssetManager/Rules/Geometries/IsGeometryEditAllowedOnPhone.js",
+                        "ExtensionProperties": {
+                            "Buttons": [
+                                {
+                                    "Title": "$(L,use_map)",
+                                    "OnPress": "/SAPAssetManager/Rules/FunctionalLocation/FunctionalLocationMapNav.js",
+                                    "_Name": "EditGeometryButton",
+                                    "IsEditable": true
+                                }
+                            ]
+                        }
+                    },
+                    {
+                        "_Type": "Control.Type.FormCell.Extension",
+                        "_Name": "DeleteGeometryButtonStack",
+                        "Module": "ButtonStackModule",
+                        "Control": "ButtonStackExtension",
+                        "Class": "ButtonStackClass",
+                        "Height": 44,
+                        "IsVisible": "/SAPAssetManager/Rules/Geometries/IsGeometryEditAllowedOnPhone.js",
+                        "ExtensionProperties": {
+                            "Buttons": [
+                                {
+                                    "Title": "$(L,remove)",
+                                    "OnPress": "/SAPAssetManager/Rules/FunctionalLocation/CreateUpdate/FunctionalLocationDeleteGeometry.js",
+                                    "_Name": "DeleteGeometryButton",
+                                    "IsEditable": "/SAPAssetManager/Rules/FunctionalLocation/CreateUpdate/FunctionalLocationDeleteGeometryAllowedForPhone.js"
+                                }
+                            ]
+                        }
+                    }]
+                },
+                {
+                    "Controls": [
+                        {  
+                            "_Name": "StrcutureIndLstPkr",
+                            "_Type": "Control.Type.FormCell.ListPicker",
+                            "Caption": "$(L, structure_ind)",
+                            "AllowMultipleSelection": false,
+                            "AllowDefaultValueIfOneItem": true,
+                            "IsPickerDismissedOnSelection": true,
+                            "IsSearchCancelledAfterSelection": true,
+                            "Search": {
+                                "Enabled": true,
+                                "Delay": 500,
+                                "MinimumCharacterThreshold": 3,
+                                "Placeholder": "$(L,search)",
+                                "BarcodeScanner": false
+                            },
+                            "PickerItems": {
+                                "DisplayValue" : "{{#Property:FuncLocStructInd}} - {{#Property:FuncLocStructIndDesc}}",
+                                "ReturnValue": "{FuncLocStructInd}",
+                                "Target": {
+                                    "EntitySet" : "FuncLocStructInds",
+                                    "Service" : "/SAPAssetManager/Services/AssetManager.service"
+                                }
+                            },
+                            "Value": "{FuncLocStructInd}",
+                            "OnValueChange": "/SAPAssetManager/Rules/FunctionalLocation/CreateUpdate/FormCellHandlers/StructureValueChanged.js"
+                        },
+                        {
+                            "_Name": "IdProperty",
+                            "_Type": "Control.Type.FormCell.SimpleProperty",
+                            "Value": "{FuncLocId}",
+                            "OnValueChange": "/SAPAssetManager/Rules/FunctionalLocation/CreateUpdate/FormCellHandlers/IdValueChanged.js",
+                            "Caption": "$(L,ID)",
+                            "IsEditable": false
+                        },
+                        {
+                            "_Name": "DescriptionNote",
+                            "_Type": "Control.Type.FormCell.SimpleProperty",
+                            "PlaceHolder": "$(L,description)",
+                            "Caption": "$(L,description)",
+                            "Value": "{FuncLocDesc}",
+                            "IsAutoResizing": true
+                        },
+                        {  
+                            "_Name": "MaintenacePlantLstPkr",
+                            "_Type": "Control.Type.FormCell.ListPicker",
+                            "Caption": "$(L, maintenance_plant)",
+                            "AllowMultipleSelection": false,
+                            "AllowDefaultValueIfOneItem": false,
+                            "IsPickerDismissedOnSelection": true,
+                            "IsSearchCancelledAfterSelection": true,
+                            "Search": {
+                                "Enabled": true,
+                                "Delay": 500,
+                                "MinimumCharacterThreshold": 3,
+                                "Placeholder": "$(L,search)",
+                                "BarcodeScanner": false
+                            },
+                            "PickerItems": {
+                                "DisplayValue" : "{{#Property:PlanningPlant}} - {{#Property:PlantDescription}}",
+                                "ReturnValue": "{PlanningPlant}",
+                                "Target": {
+                                    "EntitySet" : "Plants",
+                                    "Service" : "/SAPAssetManager/Services/AssetManager.service"
+                                }
+                            },
+                            "Value": "{MaintPlant}",
+                            "OnValueChange": "/SAPAssetManager/Rules/FunctionalLocation/CreateUpdate/FormCellHandlers/PlantValueChanged.js"
+                        },
+                        {
+                            "_Type": "Control.Type.FormCell.Extension",
+                            "Module": "extension-HierarchyFramework",
+                            "Control": "HierarchyExtension",
+                            "Class": "HierarchyExtension",
+                            "_Name": "SuperiorFuncLocHierarchyExtensionControl",
+                            "Caption": "$(L,superior_floc)",
+                            "DataSubscriptions": ["MyFunctionalLocations"],
+                            "ExtensionProperties": {
+                                "IsPicker": true,
+                                "Search": {
+                                    "Enabled": true,
+                                    "Delay": 500,
+                                    "MinimumCharacterThreshold": 3,
+                                    "Placeholder": "$(L,search)",
+                                    "BarcodeScanner": true
+                                },
+                                "PickerProperties": {
+                                    "ListFilter": "MyFunctionalLocations",
+                                    "Caption": "$(L,superior_floc)",
+                                    "AllowMultipleSelection": false,
+                                    "DisplayTextStyle": 2,
+                                    "ItemsPerPage": 50,
+                                    "CachedItemsToLoad": 20,
+                                    "OnLoaded": "/SAPAssetManager/Rules/FunctionalLocation/CreateUpdate/FormCellHandlers/FLOCHierarchyListPickerOnLoaded.js"
+                                },
+                                "HierarchyList": [],
+                                "BusinessObjects": [{
+                                    "Target": {
+                                        "EntitySet" : "MyFunctionalLocations",
+                                        "Service" : "/SAPAssetManager/Services/AssetManager.service",
+                                        "QueryOptions": "/SAPAssetManager/Rules/FunctionalLocation/CreateUpdate/FormCellHandlers/FLOCHierarchyListPickerQueryOptions.js",
+                                        "Properties": [],
+                                        "KeyProperties": []
+                                    },
+                                    "Properties":{
+                                        "ID":"{@odata.readLink}",
+                                        "Title":"{FuncLocDesc}",
+                                        "Subhead":"{FuncLocId}",
+                                        "Footnote": "$(L, functional_location)",
+                                        "ChildCount": "/SAPAssetManager/Rules/HierarchyControl/ChildCountListPicker.js",
+                                        "Parent": [
+                                            {
+                                                "Target": {
+                                                    "EntitySet" : "MyFunctionalLocations",
+                                                    "Service" : "/SAPAssetManager/Services/AssetManager.service",
+                                                    "Properties": [],
+                                                    "KeyProperties": [],
+                                                    "QueryOptions":"$filter=FuncLocIdIntern eq '{SuperiorFuncLocInternId}'&$orderby=FuncLocIdIntern"
+                                                }
+                                            }
+                                        ],
+                                        "Children": [
+                                            {
+                                                "Target": {
+                                                    "EntitySet" : "MyFunctionalLocations",
+                                                    "Service" : "/SAPAssetManager/Services/AssetManager.service",
+                                                    "Properties": [],
+                                                    "KeyProperties": [],
+                                                    "QueryOptions":"$filter=SuperiorFuncLocInternId eq '{FuncLocIdIntern}'&$orderby=SuperiorFuncLocInternId"
+                                                }
+                                            }
+                                        ]
+                                    }
+                                }]
+                            }
+                        },
+                        {
+                            "_Name": "StartDatePicker",
+                            "_Type": "Control.Type.FormCell.DatePicker",
+                            "Caption": "$(L, start_date)",
+                            "Mode": "Date",
+                            "Value": "{StartDate}"
+                        },
+                        {
+                            "_Name": "ManufactureNameProperty",
+                            "_Type": "Control.Type.FormCell.SimpleProperty",
+                            "PlaceHolder": "$(L, manufacturer)",
+                            "Caption": "$(L, manufacturer_name)",
+                            "Value": "{Manufacturer}"
+                        },
+                        {
+                            "_Name": "ManufactureDatePicker",
+                            "_Type": "Control.Type.FormCell.DatePicker",
+                            "Caption": "$(L, manufacture_date)",
+                            "Mode": "Date",
+                            "Value": "/SAPAssetManager/Rules/Common/Controls/Data/ManufactureDate.js"
+                        },
+                        {
+                            "_Name": "ModelNumberProperty",
+                            "_Type": "Control.Type.FormCell.SimpleProperty",
+                            "PlaceHolder": "$(L, model_number)",
+                            "Caption": "$(L, model_number)",
+                            "AlternateInput": "Barcode",
+                            "Value": "{ModelNumber}"
+                        },
+                        {
+                            "_Name": "SerialNumberProperty",
+                            "_Type": "Control.Type.FormCell.SimpleProperty",
+                            "PlaceHolder": "$(L, serial_number)",
+                            "Caption": "$(L, serial_number)",
+                            "AlternateInput": "Barcode",
+                            "Value": "{SerialNumber}"
+                        },
+                        {  
+                            "_Name": "LocationLstPkr",
+                            "_Type": "Control.Type.FormCell.ListPicker",
+                            "Caption": "$(L, plant_location)",
+                            "AllowMultipleSelection": false,
+                            "AllowDefaultValueIfOneItem": false,
+                            "IsPickerDismissedOnSelection": true,
+                            "IsSearchCancelledAfterSelection": true,
+                            "Search": {
+                                "Enabled": true,
+                                "Delay": 500,
+                                "MinimumCharacterThreshold": 3,
+                                "Placeholder": "$(L,search)",
+                                "BarcodeScanner": false
+                            },
+                            "PickerItems": {
+                                "DisplayValue" : "{{#Property:LocationName}}",
+                                "ReturnValue": "{@odata.readLink}",
+                                "Target": {
+                                    "EntitySet" : "Locations",
+                                    "Service" : "/SAPAssetManager/Services/AssetManager.service"
+                                }
+                            },
+                            "IsEditable": false
+                        },
+                        {
+                            "_Name": "RoomProperty",
+                            "_Type": "Control.Type.FormCell.SimpleProperty",
+                            "PlaceHolder": "$(L, room)",
+                            "Value": "{Room}",
+                            "Caption": "$(L, room)"
+                        }
+                    ]
+                },
+                {
+                    "Controls": [
+                        {
+                            "Caption":"$(L, note)",
+                            "_Name": "LongTextNote",
+                            "IsVisible": "/SAPAssetManager/Rules/FunctionalLocation/CreateUpdate/FunctionalLocationCreateUpdateVisibility.js",
+                            "_Type": "Control.Type.FormCell.Note",
+                            "PlaceHolder": "$(L, note)",
+                            "IsAutoResizing": true
+                        }
+                    ]
+                },
+                {
+                    "Controls": [
+                        {
+                            "Caption":"$(L, attachment_description)",
+                            "PlaceHolder": "$(L,attachment_description)",
+                            "IsEditable": true,
+                            "IsVisible": "/SAPAssetManager/Rules/Documents/DocumentsIsVisible.js",
+                            "_Name": "AttachmentDescription",
+                            "_Type": "Control.Type.FormCell.SimpleProperty"
+                        },
+                        {
+                            "_Name": "Attachment",
+                            "_Type": "Control.Type.FormCell.Attachment",
+                            "AttachmentTitle": "$(L,attached_files)",
+                            "AttachmentAddTitle": "$(L,add)",
+                            "AttachmentActionType": [
+                                "AddPhoto",
+                                "TakePhoto",
+                                "SelectFile"
+                            ],
+                            "AllowedFileTypes": [],
+                            "Value": "/SAPAssetManager/Rules/Documents/InitializeAttachments.js",
+                            "IsVisible": "/SAPAssetManager/Rules/Documents/DocumentsIsVisible.js"
+                        }
+                    ]
+                },
+                {
+                    "Controls": [
+                        {  
+                            "_Name": "IncludeFormReferenceLstPkr",
+                            "_Type": "Control.Type.FormCell.ListPicker",
+                            "Caption": "$(L, include_from_reference_floc)",
+                            "AllowMultipleSelection": true,
+                            "IsVisible": "/SAPAssetManager/Rules/FunctionalLocation/CreateUpdate/FormCellHandlers/TemplateVisibility.js",
+                            "Search": {
+                                "Enabled": true,
+                                "Delay": 500,
+                                "MinimumCharacterThreshold": 3,
+                                "Placeholder": "$(L,search)",
+                                "BarcodeScanner": false
+                            },
+                            "PickerItems": "/SAPAssetManager/Rules/Common/Controls/Items/ReferenceItems.js",
+                            "OnValueChange": "/SAPAssetManager/Rules/Common/Controls/Handlers/ReferenceItemsValueChanged.js"
+                        }
+                    ]
+                },
+                {
+                    "Controls": [
+                        {
+                            "_Name": "DiscardButton",
+                            "_Type": "Control.Type.FormCell.Button",
+                            "Title": "$(L,discard)",
+                            "ButtonType": "Normal",
+                            "OnPress": "/SAPAssetManager/Rules/Common/DiscardAction.js",
+                            "IsVisible": "/SAPAssetManager/Rules/Common/IsDiscardButtonVisible.js",
+                            "TextAlignment": "/SAPAssetManager/Rules/Common/Platform/ModalButtonAlign.js"
+                        }
+                    ]
+                }
+            ],
+            "_Name": "FormCellContainer",
+            "_Type": "Control.Type.FormCellContainer"
+        }
+    ],
+    "_Type": "Page",
+    "_Name": "FunctionalLocationCreateUpdatePage"
+}
