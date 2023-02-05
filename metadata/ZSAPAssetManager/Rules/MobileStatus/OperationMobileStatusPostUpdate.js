@@ -21,8 +21,6 @@ import refreshToolbar from '../../../SAPAssetManager/Rules/MobileStatus/RefreshD
 
 /* Added Import of Meter Library to check the Meter is  processed or not*/
 import meterLib from '../../../SAPAssetManager/Rules/Meter/Common/MeterLibrary';
-import meterEntitySet from '../../../SAPAssetManager/Rules/Meter/MetersListViewEntitySet';
-import meterQueryOption from '../../../SAPAssetManager/Rules/Meter/MetersListViewQueryOptions';
 
 
 
